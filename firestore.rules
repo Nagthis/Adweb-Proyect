@@ -1,0 +1,31 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    match /courses/{courseId} {
+      allow read: if true;
+      allow create: if request.auth != null;
+      
+      // Reglas de escritura (Update/Delete)
+      // 1. Admin: Puede hacer todo (se verifica primero para evitar errores)
+      // 2. Dueño: Puede borrar y editar todo
+      // 3. Usuario normal: Solo puede editar cupos e inscritos
+      
+      allow delete: if request.auth != null && (
+        request.auth.token.email == 'admin@adweb.com' || 
+        resource.data.get('ownerId', '') == request.auth.uid
+      );
+      
+      allow update: if request.auth != null && (
+        request.auth.token.email == 'admin@adweb.com' || 
+        resource.data.get('ownerId', '') == request.auth.uid ||
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['cupos', 'inscritos'])
+      );
+    }
+    
+    match /users/{userId}/enrollments/{enrollmentId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+  }
+}

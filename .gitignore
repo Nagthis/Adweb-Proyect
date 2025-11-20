@@ -1,0 +1,12 @@
+# Node modules y artefactos de compilación
+node_modules/
+dist/
+
+# Archivos de entorno
+.env.local
+.env.*.local
+mifirebaseapp.txt
+
+# Directorios de pruebas
+cypress/screenshots/
+cypress/videos/

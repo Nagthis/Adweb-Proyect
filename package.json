@@ -1,0 +1,51 @@
+{
+  "name": "curso-admin-vue",
+  "version": "1.0.0",
+  "description": "Proyecto de administración de cursos usando Vue, Vue Router, Vuex y Firebase. Este proyecto cumple con los requisitos de la evaluación final del módulo de desarrollo de aplicaciones front‑end utilizando el framework Vue. Incluye autenticación de usuarios, gestión de cursos con Firestore, y una interfaz amigable basada en Bootstrap.",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "test:e2e": "cypress open",
+    "test:e2e:ci": "cypress run"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.1",
+    "bootstrap-vue-3": "0.5.1",
+    "core-js": "^3.28.0",
+    "firebase": "^9.22.0",
+    "vue": "^3.3.4",
+    "vue-router": "^4.2.4",
+    "vuex": "^4.1.0"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "~5.0.0",
+    "@vue/cli-plugin-eslint": "~5.0.0",
+    "@vue/cli-service": "~5.0.0",
+    "@vue/compiler-sfc": "^3.3.4",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.32.0",
+    "eslint-plugin-vue": "^7.0.1",
+    "cypress": "^12.17.1"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/vue3-essential",
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "babel-eslint"
+    },
+    "rules": {}
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}
