@@ -95,6 +95,25 @@ const store = createStore({
         throw new Error("No hay cupos disponibles");
       }
     },
+    async unenrollFromCourse({ dispatch }, course) {
+      const user = auth.currentUser;
+      if (!user) throw new Error("Debes iniciar sesión.");
+
+      // 1. Eliminar inscripción del usuario
+      await deleteDoc(doc(db, 'users', user.uid, 'enrollments', course.id));
+
+      // 2. Actualizar contadores del curso
+      const docRef = doc(db, 'courses', course.id);
+      const newInscritos = (course.inscritos || 0) > 0 ? (course.inscritos - 1) : 0;
+      
+      await updateDoc(docRef, {
+        cupos: course.cupos + 1,
+        inscritos: newInscritos
+      });
+
+      // 3. Actualizar lista local
+      dispatch('fetchUserEnrollments');
+    },
     async fetchUserEnrollments({ commit }) {
       const user = auth.currentUser;
       if (!user) {

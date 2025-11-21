@@ -15,17 +15,18 @@
       <p><strong>Inscritos:</strong> {{ course.inscritos }}</p>
       <p><strong>Estado:</strong> <span :class="stateClass">{{ course.estado ? 'Activo' : 'Inactivo' }}</span></p>
       
-      <div class="mt-3" v-if="isEnrolled">
-        <b-button variant="success" disabled block>Inscrito</b-button>
+      <div class="mt-3 d-flex flex-column" v-if="isEnrolled">
+        <b-button variant="success" disabled class="w-100 mb-2">Inscrito</b-button>
+        <b-button variant="danger" class="w-100" @click="unenroll">Anular inscripción</b-button>
       </div>
       <div class="mt-3" v-else-if="canEnroll">
-        <b-button variant="primary" block @click="enroll">Inscribirse</b-button>
+        <b-button variant="primary" class="w-100" @click="enroll">Inscribirse</b-button>
       </div>
       <div class="mt-3" v-else-if="!course.estado">
-        <b-button variant="secondary" disabled block>Curso Inactivo</b-button>
+        <b-button variant="secondary" disabled class="w-100">Curso Inactivo</b-button>
       </div>
       <div class="mt-3" v-else>
-        <b-button variant="secondary" disabled block>Sin Cupos</b-button>
+        <b-button variant="secondary" disabled class="w-100">Sin Cupos</b-button>
       </div>
 
     </b-card-text>
@@ -68,6 +69,16 @@ export default {
       } catch (error) {
         console.error(error);
         alert('Error al inscribirse: ' + error.message);
+      }
+    },
+    async unenroll() {
+      if (!confirm('¿Estás seguro de que deseas anular tu inscripción a este curso?')) return;
+      try {
+        await this.$store.dispatch('unenrollFromCourse', this.course);
+        alert('Inscripción anulada correctamente.');
+      } catch (error) {
+        console.error(error);
+        alert('Error al anular inscripción: ' + error.message);
       }
     }
   }
