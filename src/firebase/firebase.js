@@ -3,12 +3,12 @@ import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: process.env.VUE_APP_FIREBASE_API_KEY,
-  authDomain: process.env.VUE_APP_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.VUE_APP_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.VUE_APP_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.VUE_APP_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.VUE_APP_FIREBASE_APP_ID
+  apiKey: "AIzaSyDe2DCj8HBprNPPDaE8Poze3E2G7l9GC1s",
+  authDomain: "admin-cursos-vue.firebaseapp.com",
+  projectId: "admin-cursos-vue",
+  storageBucket: "admin-cursos-vue.firebasestorage.app",
+  messagingSenderId: "753366620876",
+  appId:"1:753366620876:web:7608d0a5b06e39ae3a0069"
 };
 
 const firebaseApp = initializeApp(firebaseConfig);
