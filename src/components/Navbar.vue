@@ -11,21 +11,18 @@
         <b-nav-item v-if="isAuthenticated" to="/admin">Administrar Cursos</b-nav-item>
       </b-navbar-nav>
       <b-navbar-nav class="ms-auto align-items-center">
-        <!-- Botón de Tema -->
         <li class="nav-item me-3">
           <button class="btn btn-sm btn-theme-toggle" @click="$emit('toggle-theme')" title="Cambiar tema">
             {{ theme === 'light' ? '🌙 Oscuro' : '☀️ Claro' }}
           </button>
         </li>
 
-        <!-- Si hay usuario autenticado muestra opciones directas -->
         <template v-if="isAuthenticated">
           <b-nav-item to="/profile" class="me-2">{{ userEmail }}</b-nav-item>
           <li class="nav-item d-flex align-items-center">
             <b-button variant="outline-light" size="sm" @click="logout">Cerrar sesión</b-button>
           </li>
         </template>
-        <!-- Si no hay usuario muestra opciones de login y registro -->
         <template v-else>
           <b-nav-item to="/login">Iniciar sesión</b-nav-item>
           <b-nav-item to="/register">Registrarse</b-nav-item>
@@ -50,8 +47,6 @@ export default {
   },
   methods: {
     async logout() {
-      // Llama a la acción logout del store. Si ocurre algún error se
-      // captura silenciosamente para evitar bloquear la interfaz.
       try {
         await this.$store.dispatch('logout');
         this.$router.push('/login');
@@ -65,14 +60,14 @@ export default {
 
 <style scoped>
 .navbar-custom {
-  background-color: #1e1b4b !important; /* Indigo muy oscuro */
+  background-color: #1e1b4b !important;
   padding: 1rem 2rem;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
   transition: background-color 0.3s ease;
 }
 
 .text-accent {
-  color: #818cf8 !important; /* Indigo claro */
+  color: #818cf8 !important;
 }
 
 .brand-logo {
@@ -82,7 +77,6 @@ export default {
   align-items: center;
   gap: 10px;
   
-  /* Borde con degradado al 50% de opacidad */
   padding: 5px 15px;
   border: 2px solid transparent;
   border-radius: 50px;
@@ -105,7 +99,6 @@ export default {
   transform: translateY(-1px);
 }
 
-/* Ajustes para los enlaces del navbar */
 :deep(.nav-link) {
   font-family: 'Poppins', sans-serif;
   font-weight: 400;
@@ -118,7 +111,6 @@ export default {
   font-weight: 600;
 }
 
-/* Estilos para el botón hamburguesa */
 :deep(.navbar-toggler) {
   border: 1px solid rgba(255, 255, 255, 0.7) !important;
   padding: 0.5rem;

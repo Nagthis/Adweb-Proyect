@@ -83,7 +83,6 @@ export default {
       this.$router.push('/admin');
     },
     async onSubmit() {
-      // Validación previa de permisos en el cliente
       const user = this.$store.state.user;
       const isAdmin = user && user.email === 'admin@adweb.com';
       const isOwner = this.form.ownerId && user && this.form.ownerId === user.uid;
@@ -109,7 +108,6 @@ export default {
     }
   },
   created() {
-    // Suscribirse a los cursos para asegurarse de tener datos actualizados
     this.$store.dispatch('listenCourses');
   }
 };

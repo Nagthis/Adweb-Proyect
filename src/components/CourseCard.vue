@@ -15,7 +15,6 @@
       <p><strong>Inscritos:</strong> {{ course.inscritos }}</p>
       <p><strong>Estado:</strong> <span :class="stateClass">{{ course.estado ? 'Activo' : 'Inactivo' }}</span></p>
       
-      <!-- Botón de inscripción -->
       <div class="mt-3" v-if="isEnrolled">
         <b-button variant="success" disabled block>Inscrito</b-button>
       </div>
@@ -47,15 +46,10 @@ export default {
   computed: {
     ...mapState(['enrolledCourseIds']),
     courseImage() {
-      // Si la imagen existe y no está vacía, úsala. Si no, usa la imagen por defecto.
       return (this.course.img && this.course.img.trim() !== '')
         ? this.course.img
         : 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80';
     },
-    /**
-     * Determina el color del estado del curso. Utiliza clases de Bootstrap
-     * para marcar cursos activos e inactivos.
-     */
     stateClass() {
       return this.course.estado ? 'text-success' : 'text-danger';
     },
@@ -91,7 +85,6 @@ export default {
   border-color: var(--primary-color);
 }
 
-/* Ajuste de imágenes para que sean uniformes */
 :deep(.card-img-top) {
   height: 200px;
   object-fit: contain;

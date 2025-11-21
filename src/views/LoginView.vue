@@ -63,10 +63,8 @@ export default {
           email: this.email,
           password: this.password
         });
-        // Redirige a la página principal tras iniciar sesión
         this.$router.push('/');
       } catch (err) {
-        // Muestra un mensaje de error si las credenciales son inválidas
         this.error = 'Correo o contraseña incorrectos';
       }
     }

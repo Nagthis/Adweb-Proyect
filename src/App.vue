@@ -1,16 +1,13 @@
 <template>
   <div id="app" :class="theme" class="d-flex flex-column min-vh-100 app-container">
-    <!-- Encabezado y barra de navegación -->
     <header>
       <Navbar :theme="theme" @toggle-theme="toggleTheme" />
     </header>
 
-    <!-- Contenido principal -->
     <main class="flex-grow-1">
       <router-view />
     </main>
 
-    <!-- Pie de página -->
     <footer class="footer py-3 text-center mt-auto">
       <small>&copy; {{ new Date().getFullYear() }} Adweb Online. Todos los derechos reservados.</small>
     </footer>
@@ -31,7 +28,6 @@ export default {
   methods: {
     toggleTheme() {
       this.theme = this.theme === 'light' ? 'dark' : 'light';
-      // Guardar preferencia en localStorage
       localStorage.setItem('user-theme', this.theme);
       this.updateBodyClass();
     },
@@ -40,7 +36,6 @@ export default {
     }
   },
   mounted() {
-    // Cargar preferencia guardada o usar preferencia del sistema
     const savedTheme = localStorage.getItem('user-theme');
     if (savedTheme) {
       this.theme = savedTheme;
@@ -54,9 +49,8 @@ export default {
 
 <style>
 :root {
-  /* Paleta de colores moderna (Light) */
-  --primary-color: #6366f1; /* Indigo */
-  --secondary-color: #10b981; /* Emerald */
+  --primary-color: #6366f1;
+  --secondary-color: #10b981;
   --bg-color: #f3f4f6;
   --surface-color: #ffffff;
   --text-color: #1f2937;
@@ -65,7 +59,6 @@ export default {
   --card-border: rgba(0,0,0,0.125);
 }
 
-/* Paleta Dark */
 .dark {
   --primary-color: #818cf8;
   --secondary-color: #34d399;
@@ -77,7 +70,6 @@ export default {
   --card-border: #374151;
 }
 
-/* Aplicación de variables */
 body {
   font-family: 'Poppins', sans-serif;
   transition: background-color 0.3s ease, color 0.3s ease;
@@ -89,7 +81,7 @@ body {
 }
 
 .bg-dark-body {
-  background-color: #111827; /* Hardcoded for body to ensure full coverage */
+  background-color: #111827;
   color: #f9fafb;
 }
 
@@ -99,7 +91,6 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Sobrescribir estilos de Bootstrap para modo oscuro */
 .dark .card {
   background-color: var(--surface-color);
   color: var(--text-color);
@@ -129,18 +120,16 @@ body {
   transition: background-color 0.3s ease;
 }
 
-/* Botones primarios con el nuevo color */
 .btn-primary {
   background-color: var(--primary-color);
   border-color: var(--primary-color);
 }
 
 .btn-primary:hover {
-  background-color: #4f46e5; /* Un poco más oscuro */
+  background-color: #4f46e5;
   border-color: #4f46e5;
 }
 
-/* Estilos para tablas en modo oscuro */
 .dark .table {
   color: var(--text-color);
   border-color: var(--border-color);
@@ -163,7 +152,6 @@ body {
   border-color: var(--border-color);
 }
 
-/* Override text-muted for dark mode */
 .dark .text-muted {
   color: var(--text-muted) !important;
 }

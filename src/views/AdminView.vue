@@ -1,9 +1,8 @@
 <template>
   <div class="container py-4" aria-labelledby="admin-title">
     <h1 id="admin-title" class="mb-4">Administración de Cursos</h1>
-    <p class="text-muted">Desde aquí puedes agregar, editar o eliminar cursos. Los cambios se reflejarán en tiempo real para todos los usuarios.</p>
+    <p class="text-muted">Desde aquí puedes agregar, editar o eliminar cursos (solo si eres el dueño del curso). Los cambios se reflejarán en tiempo real para todos los usuarios.</p>
     <b-button variant="success" class="mb-3" @click="showAddModal = true">Agregar nuevo curso</b-button>
-    <!-- Tabla de cursos -->
     <div class="table-responsive">
       <table class="table table-striped">
         <thead class="table-light">
@@ -32,7 +31,6 @@
               </span>
             </td>
             <td>
-              <!-- Solo mostrar botones si es el dueño del curso -->
               <div v-if="isOwner(course)">
                 <b-button size="sm" variant="primary" class="me-2" @click="editCourse(course.id)">
                   Editar
@@ -49,9 +47,7 @@
         </tbody>
       </table>
     </div>
-    <!-- Modal para agregar un curso -->
     <AddCourseModal v-model:show="showAddModal" @saved="onCourseSaved" />
-    <!-- Modal de confirmación de eliminación -->
     <b-modal
       id="confirm-delete-modal"
       v-model="showDeleteModal"
@@ -69,7 +65,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import { auth } from '../firebase/firebase'; // Importar auth para obtener usuario actual
+import { auth } from '../firebase/firebase';
 import AddCourseModal from '../components/AddCourseModal.vue';
 
 export default {
@@ -80,7 +76,7 @@ export default {
       showAddModal: false,
       showDeleteModal: false,
       courseToDelete: null,
-      currentUserId: null // Para almacenar el ID del usuario actual
+      currentUserId: null
     };
   },
   computed: {
@@ -91,7 +87,6 @@ export default {
   },
   methods: {
     onCourseSaved() {
-      // Cierra el modal de agregar después de guardar
       this.showAddModal = false;
     },
     editCourse(id) {
@@ -110,20 +105,13 @@ export default {
         alert("Error al eliminar: " + err.message);
       }
     },
-    // Verifica si el usuario actual es el dueño del curso o es admin
     isOwner(course) {
-      // Si es admin, tiene permiso total
       if (this.isAdmin) return true;
-      
-      // Si el curso no tiene ownerId (cursos antiguos), asumimos que no se puede borrar/editar
-      // o podrías permitirlo si eres admin global, pero por seguridad restringimos.
       return course.ownerId && course.ownerId === this.currentUserId;
     }
   },
   created() {
-    // Suscribirse a los cursos al entrar en la vista
     this.$store.dispatch('listenCourses');
-    // Obtener usuario actual
     if (auth.currentUser) {
       this.currentUserId = auth.currentUser.uid;
     }

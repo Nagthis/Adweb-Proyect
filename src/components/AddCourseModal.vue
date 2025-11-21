@@ -64,7 +64,6 @@
         />
       </b-form-group>
 
-      <!-- URL de imagen OPCIONAL: sin required y tipo text para que no bloquee el submit -->
       <b-form-group label="URL de la imagen (opcional)" label-for="course-img">
         <b-form-input
           id="course-img"
@@ -103,7 +102,6 @@ import { auth } from "../firebase/firebase";
 export default {
   name: "AddCourseModal",
   props: {
-    // Controla la visibilidad del modal desde el componente padre
     show: {
       type: Boolean,
       required: true,
@@ -119,7 +117,7 @@ export default {
         precio: 0,
         cupos: 1,
         inscritos: 0,
-        img: "", // ahora puede quedar vacío sin problema
+        img: "",
         estado: true,
       },
       stateOptions: [
@@ -130,11 +128,9 @@ export default {
   },
   methods: {
     updateShow(value) {
-      // Emite el evento de actualización para mantener sincronizado el v-model
       this.$emit("update:show", value);
     },
     cancel() {
-      // Cierra el modal sin guardar
       this.resetForm();
       this.updateShow(false);
     },
@@ -144,17 +140,15 @@ export default {
         return;
       }
 
-      // Si no se agrega imagen, usar una por defecto relacionada a informática
       if (!this.form.img || this.form.img.trim() === '') {
         this.form.img = 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80';
       }
 
       try {
-        // Llama a la acción del store para agregar el curso
         await this.$store.dispatch("addCourse", { ...this.form });
         this.$emit("saved");
         this.resetForm();
-        this.updateShow(false); // Cierra el modal
+        this.updateShow(false);
       } catch (err) {
         console.error("Error al agregar curso:", err);
         alert("Error al agregar el curso: " + err.message);

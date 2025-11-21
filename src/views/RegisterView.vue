@@ -88,7 +88,6 @@ export default {
           email: this.email,
           password: this.password
         });
-        // Tras registro exitoso, redirige al home
         this.$router.push('/');
       } catch (err) {
         if (err.code === 'auth/email-already-in-use') {

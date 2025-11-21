@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- Hero Section -->
     <div class="hero-section text-center text-white mb-5">
       <div class="hero-overlay d-flex flex-column justify-content-center align-items-center">
         <h1 class="display-3 fw-bold mb-3 animate-fade-in">Impulsa tu Futuro Digital</h1>
@@ -47,7 +46,6 @@ export default {
     }
   },
   created() {
-    // Al crear la vista iniciamos la escucha de los cursos en Firestore
     this.$store.dispatch('listenCourses');
   }
 };
@@ -60,7 +58,7 @@ export default {
   background-image: url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
   background-size: cover;
   background-position: center;
-  background-attachment: fixed; /* Efecto Parallax */
+  background-attachment: fixed;
 }
 
 .hero-overlay {
@@ -69,7 +67,7 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.6); /* Oscurecer imagen para leer texto */
+  background: rgba(0, 0, 0, 0.6);
   padding: 20px;
 }
 
@@ -101,7 +99,6 @@ export default {
   transform: scale(1.05);
 }
 
-/* Animaciones simples */
 .animate-fade-in {
   animation: fadeIn 1s ease-out;
 }
